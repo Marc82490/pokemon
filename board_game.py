@@ -23,17 +23,17 @@ class Board:
     def add_squares(self):
         """
         Adds the squares to the board.
-        """
-        reg_squares = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18,
-                        20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 33, 34,
-                        35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49,
-                        50, 51, 53, 54, 55, 56, 57, 59, 60, 61, 62, 64, 65, 66,
-                        67]
+        """           
         gold_squares = [6, 13, 19, 32, 43, 52, 58, 63, 68, 69, 70, 71]
-        for square in reg_squares:
-            self.squares.append(BoardSquare(square))
-        for square in gold_squares:
-            self.squares.append(GoldSquare(square))
+        silver_squares = [23, 24, 25, 26, 27, 36, 37, 38, 39, 40, 48, 49, 50, 51]
+        
+        for square in range(72):
+            if square in gold_squares:
+                self.squares.append(GoldSquare(square))
+            elif square in silver_squares:
+                self.squares.append(SilverSquare(square))
+            else:
+                self.squares.append(BoardSquare(square))
             
     def get_square(self, player):
         """
@@ -84,20 +84,34 @@ class Board:
         player: an instance of Player class.
         roll: the results of a call to roll die.
         """
+        # Checks that the current square is not gold or that they've visited before.
         if not self.gold_check(player) or self.get_square(player).check_visitor(player):
+            # Move the player forward 1 square at a time.
             for x in range(roll):
                 self.players[player] += 1
+                # If they encounter a gold square, 
                 if self.gold_check(player):
+                    # check if they've visited before.
                     if self.get_square(player).check_visitor(player):
+                        # If they have, keep moving.
                         continue                        
                     else:
-                        self.check_special_action(player)
+                        # If they have not, check the square's action.
+                        self.check_special_action(player, roll)
+                        # After this turn's action is complete, mark them as
+                        #  having visited (if applicable).
                         self.get_square(player).add_visitor(player)
                         break
+        # If the current square is gold and they have not visited before,
+        else:
+            # check the square's action. Once this turn is complete, 
+            self.check_special_action(player, roll)
+            # mark them as having visited (if applicable).
+            self.get_square(player).add_visitor(player)
     
-    def check_special_action(self, player):
+    def check_special_action(self, player, roll):
         if self.gold_check(player) and not self.get_square(player).check_visitor(player):
-            self.get_square(player).special_actions(player)
+            self.get_square(player).special_actions(player, roll)
             
     def next_turn(self):
         for player in self.roll_order:
@@ -128,6 +142,7 @@ class BoardSquare:
         """
         self.square_id = square_id
         self.gold = False
+        self.silver = False
         
     def get_id(self):
         return self.square_id
@@ -153,12 +168,20 @@ class GoldSquare(BoardSquare):
         self.square_id = square_id
         self.visitors = []
         self.gold = True
+        self.silver = False
         
     def add_visitor(self, player):
         """
         Records a player visiting this square.
         """
-        self.visitors.append(player)
+        if self.square_id == 68:
+            if player.get_birds() == 3:
+                self.visitors.append(player)
+        elif self.square_id == 69:
+            if player.get_elite():
+                self.visitors.append(player)
+        else:
+            self.visitors.append(player)
     
     def check_visitor(self, player):
         """
@@ -166,43 +189,71 @@ class GoldSquare(BoardSquare):
         """
         return player in self.visitors
     
-    def special_actions(self, player):
+    def special_actions(self, player, roll):
         if self.square_id == 6:                  # Pewter
-            roll = roll_dice()
-            print(roll)
+            loc_roll = roll_dice()
+            print(loc_roll, 'Pewter')
         elif self.square_id == 13:               # Cerulean
             pass # no special actions
         elif self.square_id == 19:               # Vermilion
-            roll = roll_dice()
-            if roll % 2 == 0:
+            loc_roll = roll_dice()
+            print(loc_roll, 'Vermilion')
+            if loc_roll % 2 == 0:
                 player.set_missed_turn()
         elif self.square_id == 32:               # Celadon
-            if roll_dice() <= 3:
+            loc_roll = roll_dice()
+            print(loc_roll, 'Celadon')
+            if loc_roll <= 3:
                 player.set_missed_turn()
         elif self.square_id == 43:               # Saffron
-            prediction = int(input('Pick a number, 1-6: '))
-            if roll_dice() == prediction:
-                print(roll_dice())
+            while True:
+                try:
+                    prediction = int(input("Pick a number between 1 and 6: "))
+                except ValueError:
+                    print("Please enter a valid number.")
+                    continue
+                if prediction not in range(1, 7):
+                    print("Please enter a valid number.")
+                    continue
+                else:
+                    break
+            loc_roll = roll_dice()
+            if loc_roll == prediction:
+                print(loc_roll, 'Saffron')
         elif self.square_id == 52:               # Fuchsia
             pass # no special actions
         elif self.square_id == 58:               # Cinnabar
             while True:
-                if roll_dice() % 2 == 0:
+                loc_roll = roll_dice()
+                print(loc_roll, 'Cinnabar')
+                if loc_roll % 2 == 0:
                     continue
                 else:
                     break
         elif self.square_id == 63:               # Viridian
             pass # no special actions
         elif self.square_id == 68:               # Legendaries
-            if player.get_legendaries() != 3:
-                if roll_dice() >= 4:
-                    player.add_legendary()
+            if not player.get_at_legendaries():
+                print('Got to Legendaries')
+                loc_roll = roll_dice()
+                print(roll, 'First roll at Legendaries')
+                if roll >= 4:
+                    player.add_bird()
+                    print('Added bird')
+                player.set_at_legendaries()
+            elif player.get_at_legendaries() and player.get_birds() != 3:
+                print('Already at Legendaries')
+                if roll >= 4:
+                    player.add_bird()
+                    print('Added bird')
+            else:
+                pass
         elif self.square_id == 69:               # Elite Four
-            while True:
-                if roll_dice() != 4:
-                    continue
-                else:
-                    break
+            if roll != 4:
+                print('Not Elite!')
+            else:
+                player.set_elite()
+                print('Elite!')
         elif self.square_id == 70:               # Champion Gary
             pass # no special actions
         elif self.square_id == 71:               # Pokemon Master!
@@ -212,7 +263,16 @@ class SilverSquare(BoardSquare):
     """
     Announces special rules for that zone when a player reaches it.
     """
-    pass
+    def __init__(self, square_id):
+        """
+        square_id: an int, the squares spot on the board.
+        """
+        self.square_id = square_id
+        self.gold = False
+        self.silver = True
+    
+    def special_actions(self, player):
+        pass
     
 class Player:
     """
@@ -223,7 +283,9 @@ class Player:
     def __init__(self, player_name):
         self.player_name = player_name
         self.miss_turn = False
-        self.legendaries = 0
+        self.at_legendaries = False
+        self.birds = 0
+        self.elite = False
             
     def get_name(self):
         return self.player_name
@@ -237,8 +299,21 @@ class Player:
     def clear_missed_turn(self):
         self.miss_turn = False
     
-    def get_legendaries(self):
-        return self.legendaries
+    def set_at_legendaries(self):
+        self.at_legendaries = True
         
-    def add_legendary(self):
-        self.legendaries += 1
+    def get_at_legendaries(self):
+        return self.at_legendaries
+    
+    def get_birds(self):
+        return self.birds
+        
+    def add_bird(self):
+        self.birds += 1
+        
+    def get_elite(self):
+        return self.elite
+    
+    def set_elite(self):
+        self.elite = True
+
