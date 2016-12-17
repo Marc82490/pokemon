@@ -122,6 +122,10 @@ class Board:
             
     def next_turn(self):
         for player in self.roll_order:
+            self.check_game_end()
+            if self.get_game_end():
+                print('STOP')
+                break
             if not player.get_missed_turn():
                 roll = roll_dice()
                 print(roll)
@@ -129,6 +133,7 @@ class Board:
             else:
                 print("Missed turn!")
                 player.clear_missed_turn()
+            
     
     def check_game_end(self):
         """
@@ -137,3 +142,9 @@ class Board:
         for player in self.players:
             if self.players[player] == 71:
                 self.game_end = True
+                
+    def get_game_end(self):
+        """
+        Returns True if the game is over.
+        """
+        return self.game_end
