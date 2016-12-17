@@ -81,8 +81,42 @@ class BoardSquare:
         elif self.square_id == 41:               # Rare Candy
             self.rare_candy(player)
         elif self.square_id == 42:               # Gary 3
-            gary_three(player)
-            
+            self.gary_three(player)
+        elif self.square_id == 44:               # Hitmonchan
+            self.hitmonchan(player)
+        elif self.square_id == 45:               # Krabby
+            pass # no special actions
+        elif self.square_id == 46:               # Ditto
+            pass # no special actions
+        elif self.square_id == 47:               # Doduo
+            pass # no special actions
+        elif self.square_id == 53:               # Electrode
+            pass # no special actions
+        elif self.square_id == 54:               # Electabuzz
+            self.electabuzz(player)
+        elif self.square_id == 55:               # Poliwag
+            pass # no special actions
+        elif self.square_id == 56:               # Seaking
+            pass # no special actions
+        elif self.square_id == 57:               # Missingno
+            self.missingno(player)
+        elif self.square_id == 59:               # Koffing
+            pass # no special actions
+        elif self.square_id == 60:               # Fossil
+            pass # no special actions
+        elif self.square_id == 61:               # Pokeball
+            self.pokeball(player)
+        elif self.square_id == 62:               # Persian
+            self.persian(player)
+        elif self.square_id == 64:               # Fearow
+            pass # no special actions
+        elif self.square_id == 65:               # Graveler
+            self.graveler(player)
+        elif self.square_id == 66:               # Gyrados
+            self.gyrados(player)
+        elif self.square_id == 67:               # Dragonite
+            self.dragonite(player)
+        
     def pidgey(self, player):
         pass
     
@@ -120,6 +154,30 @@ class BoardSquare:
         pass
         
     def gary_three(self, player):
+        pass
+    
+    def hitmonchan(self, player):
+        pass
+        
+    def electabuzz(self, player):
+        pass
+        
+    def missingno(self, player):
+        pass
+        
+    def pokeball(self, player):
+        pass
+        
+    def persian(self, player):
+        pass
+        
+    def graveler(self, player):
+        pass
+        
+    def gyrados(self, player):
+        pass
+        
+    def dragonite(self, player):
         pass
         
 class GoldSquare(BoardSquare):
@@ -279,6 +337,14 @@ class SilverSquare(BoardSquare):
             pass # no special actions
         elif self.square_id == 40:               # Giovanni
             self.giovanni(player)
+        elif self.square_id == 48:               # Safari Zone
+            pass # no special actions
+        elif self.square_id == 49:               # Dratini
+            self.dratini(player)
+        elif self.square_id == 50:               # Taurus
+            pass # no special actions
+        elif self.square_id == 51:               # Chansey
+            self.chansey(player)
             
     def haunter(self, player):
         pass
@@ -287,4 +353,10 @@ class SilverSquare(BoardSquare):
         pass
     
     def giovanni(self, player):
+        pass
+        
+    def dratini(self, player):
+        pass
+    
+    def chansey(self, player):
         pass
