@@ -6,7 +6,6 @@ from player import *
 class BoardSquare:
     """
     Announces any actions or drinks required for that square.
-    Signals which player(s) is on its space.
     """
     def __init__(self, square_id):
         """
@@ -21,100 +20,100 @@ class BoardSquare:
     
     def check_visitor(self, player):
         """
-        Regular board squares do not prevent players from moving forwards.
+        Regular board squares do not prevent players from moving forward.
         """
         return True
         
     def special_actions(self, player, roll):
-        if self.square_id == 1:                  # Rattata
+        if self.get_id() == 1:                  # Rattata
             pass # no special actions
-        elif self.square_id == 2:                # Pidgey
+        elif self.get_id() == 2:                # Pidgey
             self.pidgey(player)
-        elif self.square_id == 3:                # Caterpie
+        elif self.get_id() == 3:                # Caterpie
             self.caterpie(player)
-        elif self.square_id == 4:                # Pikachu
+        elif self.get_id() == 4:                # Pikachu
             pass # no special actions
-        elif self.square_id == 5:                # Beedrill
+        elif self.get_id() == 5:                # Beedrill
             pass # no special actions
-        elif self.square_id == 7:                # Nidoran
+        elif self.get_id() == 7:                # Nidoran
             pass # no special actions
-        elif self.square_id == 8:                # Zubat
+        elif self.get_id() == 8:                # Zubat
             self.zubat(player)
-        elif self.square_id == 9:                # Clefairy
+        elif self.get_id() == 9:                # Clefairy
             pass # no special actions
-        elif self.square_id == 10:               # Jigglypuff
+        elif self.get_id() == 10:               # Jigglypuff
             self.jigglypuff(player)
-        elif self.square_id == 11:               # Abra 1
+        elif self.get_id() == 11:               # Abra 1
             self.abra(player)
-        elif self.square_id == 12:               # Gary 1
+        elif self.get_id() == 12:               # Gary 1
             self.gary_one(player)
-        elif self.square_id == 14:               # Slowpoke
+        elif self.get_id() == 14:               # Slowpoke
             pass # no special actions
-        elif self.square_id == 15:               # Bellsprout
+        elif self.get_id() == 15:               # Bellsprout
             pass # no special actions
-        elif self.square_id == 16:               # Meowth
+        elif self.get_id() == 16:               # Meowth
             pass # no special actions
-        elif self.square_id == 17:               # Diglett
+        elif self.get_id() == 17:               # Diglett
             pass # no special actions
-        elif self.square_id == 18:               # S.S. Anne
+        elif self.get_id() == 18:               # S.S. Anne
             self.ss_anne(player)
-        elif self.square_id == 20:               # Bicycle
+        elif self.get_id() == 20:               # Bicycle
             self.bicycle(player)
-        elif self.square_id == 21:               # Magikarp
+        elif self.get_id() == 21:               # Magikarp
             self.magikarp(player)
-        elif self.square_id == 22:               # Sandshrew
+        elif self.get_id() == 22:               # Sandshrew
             pass
-        elif self.square_id == 28:               # Abra 2
+        elif self.get_id() == 28:               # Abra 2
             self.abra(player)
-        elif self.square_id == 29:               # Snorlax
+        elif self.get_id() == 29:               # Snorlax
             pass # no special actions
-        elif self.square_id == 30:               # Gary 2
+        elif self.get_id() == 30:               # Gary 2
             self.gary_two(player)
-        elif self.square_id == 31:               # Eevee
+        elif self.get_id() == 31:               # Eevee
             pass # no special actions
-        elif self.square_id == 33:               # Psyduck
+        elif self.get_id() == 33:               # Psyduck
             pass # no special actions
-        elif self.square_id == 34:               # Evolve
+        elif self.get_id() == 34:               # Evolve
             self.evolve(player)
-        elif self.square_id == 35:               # Porygon
+        elif self.get_id() == 35:               # Porygon
             pass # no special actions
-        elif self.square_id == 41:               # Rare Candy
+        elif self.get_id() == 41:               # Rare Candy
             self.rare_candy(player)
-        elif self.square_id == 42:               # Gary 3
+        elif self.get_id() == 42:               # Gary 3
             self.gary_three(player)
-        elif self.square_id == 44:               # Hitmonchan
+        elif self.get_id() == 44:               # Hitmonchan
             self.hitmonchan(player)
-        elif self.square_id == 45:               # Krabby
+        elif self.get_id() == 45:               # Krabby
             pass # no special actions
-        elif self.square_id == 46:               # Ditto
+        elif self.get_id() == 46:               # Ditto
             pass # no special actions
-        elif self.square_id == 47:               # Doduo
+        elif self.get_id() == 47:               # Doduo
             pass # no special actions
-        elif self.square_id == 53:               # Electrode
+        elif self.get_id() == 53:               # Electrode
             pass # no special actions
-        elif self.square_id == 54:               # Electabuzz
+        elif self.get_id() == 54:               # Electabuzz
             self.electabuzz(player)
-        elif self.square_id == 55:               # Poliwag
+        elif self.get_id() == 55:               # Poliwag
             pass # no special actions
-        elif self.square_id == 56:               # Seaking
+        elif self.get_id() == 56:               # Seaking
             pass # no special actions
-        elif self.square_id == 57:               # Missingno
+        elif self.get_id() == 57:               # Missingno
             self.missingno(player)
-        elif self.square_id == 59:               # Koffing
+        elif self.get_id() == 59:               # Koffing
             pass # no special actions
-        elif self.square_id == 60:               # Fossil
+        elif self.get_id() == 60:               # Fossil
             pass # no special actions
-        elif self.square_id == 61:               # Pokeball
+        elif self.get_id() == 61:               # Pokeball
             self.pokeball(player)
-        elif self.square_id == 62:               # Persian
+        elif self.get_id() == 62:               # Persian
             self.persian(player)
-        elif self.square_id == 64:               # Fearow
+        elif self.get_id() == 64:               # Fearow
             pass # no special actions
-        elif self.square_id == 65:               # Graveler
+        elif self.get_id() == 65:               # Graveler
             self.graveler(player)
-        elif self.square_id == 66:               # Gyrados
+        elif self.get_id() == 66:               # Gyrados
             self.gyrados(player)
-        elif self.square_id == 67:               # Dragonite
+        elif self.get_id() == 67:               # Dragonite
             self.dragonite(player)
         
     def pidgey(self, player):
@@ -216,27 +215,27 @@ class GoldSquare(BoardSquare):
     def special_actions(self, player, roll):
         if self.square_id == 6:                  # Pewter
             self.pewter(player)
-        elif self.square_id == 13:               # Cerulean
+        elif self.get_id() == 13:               # Cerulean
             pass # no special actions
-        elif self.square_id == 19:               # Vermilion
+        elif self.get_id() == 19:               # Vermilion
             self.vermilion(player)
-        elif self.square_id == 32:               # Celadon
+        elif self.get_id() == 32:               # Celadon
             self.celadon(player)
-        elif self.square_id == 43:               # Saffron
+        elif self.get_id() == 43:               # Saffron
             self.saffron(player)
-        elif self.square_id == 52:               # Fuchsia
+        elif self.get_id() == 52:               # Fuchsia
             pass # no special actions
-        elif self.square_id == 58:               # Cinnabar
+        elif self.get_id() == 58:               # Cinnabar
             self.cinnabar(player)
-        elif self.square_id == 63:               # Viridian
+        elif self.get_id() == 63:               # Viridian
             pass # no special actions
-        elif self.square_id == 68:               # Legendaries
+        elif self.get_id() == 68:               # Legendaries
             self.legendaries(player, roll)
-        elif self.square_id == 69:               # Elite Four
+        elif self.get_id() == 69:               # Elite Four
             self.elite_four(player, roll)
-        elif self.square_id == 70:               # Champion Gary
+        elif self.get_id() == 70:               # Champion Gary
             pass # no special actions
-        elif self.square_id == 71:               # Pokemon Master!
+        elif self.get_id() == 71:               # Pokemon Master!
             pass # no special actions
 
     def pewter(self, player):
@@ -317,33 +316,33 @@ class SilverSquare(BoardSquare):
         self.silver = True
     
     def special_actions(self, player, roll):
-        if self.square_id == 23:                 # Pokemon Tower
+        if self.get_id() == 23:                 # Pokemon Tower
             pass # no special actions
-        elif self.square_id == 24:               # Channeler
+        elif self.get_id() == 24:               # Channeler
             pass # no special actions
-        elif self.square_id == 25:               # Haunter
+        elif self.get_id() == 25:               # Haunter
             self.haunter(player)
-        elif self.square_id == 26:               # Cubone
+        elif self.get_id() == 26:               # Cubone
             pass # no special actions
-        elif self.square_id == 27:               # Silph Scope
+        elif self.get_id() == 27:               # Silph Scope
             pass # no special actions
-        elif self.square_id == 36:               # Silph Co.
+        elif self.get_id() == 36:               # Silph Co.
             pass # no special actions
-        elif self.square_id == 37:               # Scientist
+        elif self.get_id() == 37:               # Scientist
             pass # no special actions
-        elif self.square_id == 38:               # Lapras
+        elif self.get_id() == 38:               # Lapras
             self.lapras(player)
-        elif self.square_id == 39:               # Team Rocket
+        elif self.get_id() == 39:               # Team Rocket
             pass # no special actions
-        elif self.square_id == 40:               # Giovanni
+        elif self.get_id() == 40:               # Giovanni
             self.giovanni(player)
-        elif self.square_id == 48:               # Safari Zone
+        elif self.get_id() == 48:               # Safari Zone
             pass # no special actions
-        elif self.square_id == 49:               # Dratini
+        elif self.get_id() == 49:               # Dratini
             self.dratini(player)
-        elif self.square_id == 50:               # Taurus
+        elif self.get_id() == 50:               # Taurus
             pass # no special actions
-        elif self.square_id == 51:               # Chansey
+        elif self.get_id() == 51:               # Chansey
             self.chansey(player)
             
     def haunter(self, player):
